@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { BusinessList } from '../Business/Business'
+import { BusinessList } from '../BusinessList/BusinessList'
 import { SearchBar } from '../SearchBar/SearchBar'
 
 export class App extends React.Component {
