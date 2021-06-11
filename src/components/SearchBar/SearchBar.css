@@ -40,7 +40,7 @@
 .SearchBar-fields {
   display: flex;
   justify-content: center;
-  margin-bottom: 2.88rem;
+  margin-bottom: 2.16rem;
 }
 
 .SearchBar-fields input {
@@ -61,7 +61,8 @@
   text-align: center;
 }
 
-.SearchBar-submit a {
+.SearchBar-submit a,
+.SearchBar-submit button {
   border-radius: 4px;
   padding: 0.72rem 1.7rem;
   background-color: #cca353;
@@ -70,7 +71,14 @@
   transition: background-color 0.5s;
 }
 
-.SearchBar-submit a:hover {
+.SearchBar-submit button {
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.SearchBar-submit a:hover,
+.SearchBar-submit button:hover {
   cursor: pointer;
   background-color: #a7874b;
 }

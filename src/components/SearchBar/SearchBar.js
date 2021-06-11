@@ -76,9 +76,9 @@ export class SearchBar extends React.Component {
           />
         </div>
         <div className="SearchBar-submit">
-          <a href="#" onClick={this.handleSearch}>
+          <button type="submit" onClick={this.handleSearch}>
             Let's Go
-          </a>
+          </button>
         </div>
       </div>
     )
