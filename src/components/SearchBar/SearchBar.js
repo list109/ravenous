@@ -2,6 +2,12 @@ import React from 'react'
 import './SearchBar.css'
 
 export class SearchBar extends React.Component {
+  state = {
+    sortBy: 'best_match',
+    term: '',
+    location: ''
+  }
+
   sortByOptions = {
     'Best Match': 'best_match',
     'Highest Rated': 'rating',
