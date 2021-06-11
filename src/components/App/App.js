@@ -14,7 +14,7 @@ const business = {
   rating: 4.5,
   reviewCount: 90
 }
-const businesses = []
+const businesses = [business, business, business, business, business]
 
 export class App extends React.Component {
   render() {

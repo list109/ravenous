@@ -4,14 +4,13 @@ import { Business } from '../Business/Business'
 
 export class BusinessList extends React.Component {
   render() {
+    const { businesses } = this.props
+
     return (
       <div className="BusinessList">
-        <Business />
-        <Business />
-        <Business />
-        <Business />
-        <Business />
-        <Business />
+        {businesses.map((business, i) => (
+          <Business business={business} key={i} />
+        ))}
       </div>
     )
   }
