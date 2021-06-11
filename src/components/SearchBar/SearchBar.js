@@ -34,6 +34,12 @@ export class SearchBar extends React.Component {
     return sortOption === this.state.sortBy ? 'active' : ''
   }
 
+  handleSearch = e => {
+    e.preventDefault()
+    const { sortBy, term, location } = this.state
+    this.props.searchYelp({ sortBy, term, location })
+  }
+
   renderSortByOptions() {
     return Object.keys(this.sortByOptions).map(sortByOption => {
       const sortByOptionValue = this.sortByOptions[sortByOption]
@@ -70,7 +76,9 @@ export class SearchBar extends React.Component {
           />
         </div>
         <div className="SearchBar-submit">
-          <a href="#">Let's Go</a>
+          <a href="#" onClick={this.handleSearch}>
+            Let's Go
+          </a>
         </div>
       </div>
     )
