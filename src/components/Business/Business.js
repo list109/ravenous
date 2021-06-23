@@ -19,7 +19,9 @@ export class Business extends React.Component {
           <div className="Business-reviews">
             <h3>{business.category.toUpperCase()}</h3>
             <h3 className="rating">{business.rating} stars</h3>
-            <p>{business.reviewCount} reviews</p>
+            <p>
+              {business.reviewCount} ${business.reviewCount === 1 ? 'review' : 'reviews'}
+            </p>
           </div>
         </div>
       </div>
