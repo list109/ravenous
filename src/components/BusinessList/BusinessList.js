@@ -8,8 +8,8 @@ export class BusinessList extends React.Component {
 
     return (
       <div className="BusinessList">
-        {businesses.map((business, i) => (
-          <Business business={business} key={i} />
+        {businesses.map(business => (
+          <Business business={business} key={business.id} />
         ))}
       </div>
     )
