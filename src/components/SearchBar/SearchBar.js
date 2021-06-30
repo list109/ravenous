@@ -11,7 +11,7 @@ export class SearchBar extends React.Component {
   sortByOptions = {
     'Best Match': 'best_match',
     'Highest Rated': 'rating',
-    'Most Reviewed': 'review'
+    'Most Reviewed': 'review_count'
   }
 
   handleSortByChange = sortOption => {
