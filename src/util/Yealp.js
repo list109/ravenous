@@ -4,6 +4,9 @@ const apiKey =
 
 export const Yelp = {
   async search({ term, location, sortBy }) {
+    // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
+    // const endpoint = 'https://api.yelp.com/v3/businesses/search'
+    // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
     const urlToFetch = `/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`
 
     let response
@@ -15,11 +18,11 @@ export const Yelp = {
         }
       })
     } catch (error) {
-      throw new Error('Network error has occured')
+      throw new FetchError(response, `Network error has occured:${error.message}`)
     }
 
     if (!response.ok) {
-      throw new Error(`${response.status}:${response.statusText}`)
+      throw new FetchError(response, `${response.status}:${response.statusText}`)
     }
 
     let jsonResponse
@@ -27,7 +30,7 @@ export const Yelp = {
     try {
       jsonResponse = await response.json()
     } catch (error) {
-      throw new Error('Transformation to json format was failed')
+      throw new FetchError(jsonResponse, 'Transformation to json format was failed')
     }
     const { businesses = [] } = jsonResponse
 
@@ -58,6 +61,13 @@ export const Yelp = {
         }
       }
     )
+  }
+}
+
+class FetchError extends Error {
+  constructor(response, message) {
+    super(message)
+    this.response = response
   }
 }
 
