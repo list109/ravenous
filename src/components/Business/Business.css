@@ -21,6 +21,14 @@
   display: flex;
   justify-content: space-between;
 }
+.Business-information a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.Business-information a:hover {
+  text-decoration: underline;
+}
 
 .Business-information p {
   font-size: 0.88rem;
