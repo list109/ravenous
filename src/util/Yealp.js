@@ -34,33 +34,33 @@ export const Yelp = {
     }
     const { businesses = [] } = jsonResponse
 
-    return businesses.map(
-      ({
-        id,
-        image_url: imageSrc = '',
-        name,
-        location,
-        categories,
-        rating,
-        review_count: reviewCount
-      }) => {
-        const { address1: address, city, state, zip_code: zipCode } = location
-        const category = categories.map(({ title }) => title).join(', ')
+    return businesses.map(business => this.getBusinessData(business))
+  },
 
-        return {
-          id,
-          imageSrc,
-          name,
-          address,
-          city,
-          state,
-          zipCode,
-          category,
-          rating,
-          reviewCount
-        }
-      }
-    )
+  getBusinessData({
+    id,
+    image_url: imageSrc = '',
+    name,
+    location,
+    categories,
+    rating,
+    review_count: reviewCount
+  }) {
+    const { address1: address, city, state, zip_code: zipCode } = location
+    const category = categories.map(({ title }) => title).join(', ')
+
+    return {
+      id,
+      imageSrc,
+      name,
+      address,
+      city,
+      state,
+      zipCode,
+      category,
+      rating,
+      reviewCount
+    }
   }
 }
 
