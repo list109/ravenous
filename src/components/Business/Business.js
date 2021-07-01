@@ -4,24 +4,32 @@ import './Business.css'
 export class Business extends React.Component {
   render() {
     const { business } = this.props
+    const { imageSrc, name, address, city, state, category, rating, reviewCount } = business
+
+    const businessMapUrl = new URL('https://www.google.com/maps/search/')
+    businessMapUrl.searchParams.append('api', 1)
+    businessMapUrl.searchParams.append('query', `${name}, ${address}, ${city}, ${state}`)
+
     return (
       <div className="Business">
         <div className="image-container">
-          <img src={business.imageSrc} alt="" />
+          <img src={imageSrc} alt="" />
         </div>
-        <h2>{business.name}</h2>
+        <h2>{name}</h2>
         <div className="Business-information">
-          <div className="Business-address">
-            <p>{business.address}</p>
-            <p>{business.city}</p>
-            <p>{business.state}</p>
-          </div>
+          <a href={businessMapUrl} target="blank">
+            <div className="Business-address">
+              <p>{address}</p>
+              <p>{city}</p>
+              <p>{state}</p>
+            </div>
+          </a>
           <div className="Business-reviews">
-            <h3>{business.category.toUpperCase()}</h3>
-            <h3 className="rating">{business.rating} stars</h3>
+            <h3>{category.toUpperCase()}</h3>
+            <h3 className="rating">{rating} stars</h3>
             <p>
-              {business.reviewCount}
-              {business.reviewCount === 1 ? ' review' : ' reviews'}
+              {reviewCount}
+              {reviewCount === 1 ? ' review' : ' reviews'}
             </p>
           </div>
         </div>
