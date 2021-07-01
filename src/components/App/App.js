@@ -18,7 +18,7 @@ export class App extends React.Component {
   }
 
   getErrorMessage({ response, message }) {
-    switch (response.status) {
+    switch (response?.status) {
       case 400:
         return 'Please, try to change some of the fields value'
       default:
