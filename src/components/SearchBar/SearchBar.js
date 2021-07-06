@@ -104,7 +104,7 @@ export class SearchBar extends React.Component {
                 value={this.state.radius}
                 onChange={this.handleRadiusChange}
               />
-              Specify a radius of the search area
+              Specify a radius of the search area (max 40000 m)
             </label>
             <label>
               <input type="checkbox" onChange={this.handleStatusChange} />
