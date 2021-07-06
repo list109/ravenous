@@ -4,7 +4,8 @@ import './Business.css'
 export class Business extends React.Component {
   render() {
     const { business } = this.props
-    const { imageSrc, name, address, city, state, category, rating, reviewCount, url } = business
+    const { imageSrc, name, address, city, state, category, rating, reviewCount, url, distance } =
+      business
 
     const businessMapUrl = new URL('https://www.google.com/maps/search/')
     businessMapUrl.searchParams.append('api', 1)
@@ -24,6 +25,7 @@ export class Business extends React.Component {
               <p>{address}</p>
               <p>{city}</p>
               <p>{state}</p>
+              <p>{Math.floor(distance)} m</p>
             </div>
           </a>
           <div className="Business-reviews">
