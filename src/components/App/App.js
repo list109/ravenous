@@ -7,13 +7,13 @@ import { Yelp } from '../../util/Yealp'
 export class App extends React.Component {
   state = { businesses: [], errorMessage: '' }
 
-  searchYelp = ({ term, location, sortBy }) => {
+  searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
     if (term === '' || location === '') {
       this.setState({ errorMessage: this.getErrorMessage(400) })
       return
     }
 
-    Yelp.search({ term, location, sortBy })
+    Yelp.search({ term, location, sortBy, radius, onlyOpened })
       .then(businesses => {
         this.setState({ businesses, errorMessage: '' })
       })

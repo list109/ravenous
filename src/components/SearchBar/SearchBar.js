@@ -20,8 +20,8 @@ export class SearchBar extends React.Component {
   handleSortByChange = sortOption => {
     this.setState({ sortBy: sortOption })
 
-    const { term, location } = this.state
-    this.props.searchYelp({ sortBy: sortOption, term, location })
+    const { term, location, radius, onlyOpened } = this.state
+    this.props.searchYelp({ sortBy: sortOption, term, location, radius, onlyOpened })
   }
 
   handleTermChange = ({ target }) => {
@@ -54,8 +54,8 @@ export class SearchBar extends React.Component {
 
   handleSearch = e => {
     e.preventDefault()
-    const { sortBy, term, location } = this.state
-    this.props.searchYelp({ sortBy, term, location })
+    const { sortBy, term, location, radius, onlyOpened } = this.state
+    this.props.searchYelp({ sortBy, term, location, radius, onlyOpened })
   }
 
   renderSortByOptions() {

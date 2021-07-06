@@ -3,11 +3,12 @@ const apiKey =
   'IoNiWEe1LFoHMhPW3C23ogHi6ih5_rAJqUfjm6Px19rti1nBX8FD-plzKL9jxpQBMnQBZaSwH_z-hN9Ru1rqNV1WoaR0vC9p5ywlR7_hRahgEnBgCIXlNUTgcUzTYHYx'
 
 export const Yelp = {
-  async search({ term, location, sortBy }) {
+  async search({ term, location, sortBy, radius, onlyOpened }) {
     // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
     // const endpoint = 'https://api.yelp.com/v3/businesses/search'
     // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
-    const urlToFetch = `/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`
+    const areaRadius = radius && `&radius=${radius}`
+    const urlToFetch = `/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}${areaRadius}&open_now=${onlyOpened}`
 
     let response
 
