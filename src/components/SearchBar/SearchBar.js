@@ -37,8 +37,10 @@ export class SearchBar extends React.Component {
   }
 
   handleRadiusChange = ({ target }) => {
+    if (target.value > 40000) return
+
     this.setState({
-      radius: Math.min(target.value, 40000) || ''
+      radius: target.value
     })
   }
 
