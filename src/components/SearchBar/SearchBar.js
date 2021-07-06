@@ -5,7 +5,9 @@ export class SearchBar extends React.Component {
   state = {
     sortBy: 'best_match',
     term: '',
-    location: ''
+    location: '',
+    radius: '',
+    onlyOpened: false
   }
 
   sortByOptions = {
@@ -31,6 +33,18 @@ export class SearchBar extends React.Component {
   handleLocationChange = ({ target }) => {
     this.setState({
       location: target.value
+    })
+  }
+
+  handleRadiusChange = ({ target }) => {
+    this.setState({
+      radius: Math.min(target.value, 40000) || ''
+    })
+  }
+
+  handleStatusChange = ({ target }) => {
+    this.setState({
+      onlyOpened: target.checked
     })
   }
 
@@ -79,6 +93,25 @@ export class SearchBar extends React.Component {
             placeholder="Where?"
           />
         </div>
+        <fieldset className="SearchBar-distance-options">
+          <legend>Optional</legend>
+          <p>
+            <label>
+              <input
+                type="number"
+                min="0"
+                max="40000"
+                value={this.state.radius}
+                onChange={this.handleRadiusChange}
+              />
+              Specify a radius of the search area
+            </label>
+            <label>
+              <input type="checkbox" onChange={this.handleStatusChange} />
+              Consider only the businesses open now
+            </label>
+          </p>
+        </fieldset>
         <div className="SearchBar-submit">
           <button type="submit" onClick={this.handleSearch}>
             Let's Go
