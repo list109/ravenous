@@ -18,11 +18,11 @@ export const Yelp = {
         }
       })
     } catch (error) {
-      throw new FetchError(response, `Network error has occured:${error.message}`)
+      throw new FetchError(response.status, `Network error has occured:${error.message}`)
     }
 
     if (!response.ok) {
-      throw new FetchError(response, `${response.status}:${response.statusText}`)
+      throw new FetchError(response.status, `${response.status}:${response.statusText}`)
     }
 
     let jsonResponse
@@ -30,7 +30,7 @@ export const Yelp = {
     try {
       jsonResponse = await response.json()
     } catch (error) {
-      throw new FetchError(jsonResponse, 'Transformation to json format was failed')
+      throw new FetchError(null, 'Transformation to json format was failed')
     }
     const { businesses = [] } = jsonResponse
 
@@ -69,9 +69,9 @@ export const Yelp = {
 }
 
 class FetchError extends Error {
-  constructor(response, message) {
+  constructor(status, message) {
     super(message)
-    this.response = response
+    this.status = status
   }
 }
 
