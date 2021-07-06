@@ -12,9 +12,11 @@ export class Business extends React.Component {
 
     return (
       <div className="Business">
-        <div className="image-container">
-          <img src={imageSrc} alt="" />
-        </div>
+        <a href={url} target="blank">
+          <div className="image-container">
+            <img src={imageSrc} alt="" />
+          </div>
+        </a>
         <h2>{name}</h2>
         <div className="Business-information">
           <a href={businessMapUrl} target="blank">
