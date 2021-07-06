@@ -75,7 +75,7 @@ export class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="SearchBar">
+      <form className="SearchBar" onSubmit={this.handleSearch}>
         <div className="SearchBar-sort-options">
           <ul>{this.renderSortByOptions()}</ul>
         </div>
@@ -113,11 +113,9 @@ export class SearchBar extends React.Component {
           </p>
         </fieldset>
         <div className="SearchBar-submit">
-          <button type="submit" onClick={this.handleSearch}>
-            Let's Go
-          </button>
+          <button type="submit">Let's Go</button>
         </div>
-      </div>
+      </form>
     )
   }
 }
