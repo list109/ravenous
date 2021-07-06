@@ -7,8 +7,45 @@
 }
 
 .Business .image-container {
+  position: relative;
   height: 16.66rem;
   margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.Business .image-container::before,
+.Business .image-container::after {
+  position: absolute;
+}
+
+.Business .image-container::before {
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.Business .image-container::after {
+  content: 'Visit the resource';
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: underline;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+
+.Business .image-container:hover::before {
+  background: rgba(116, 116, 116, 0.7);
+}
+.Business .image-container:hover::after {
+  visibility: initial;
 }
 
 .Business h2 {
