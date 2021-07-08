@@ -1,4 +1,5 @@
 import React from 'react'
+import './Autocomplete.css'
 
 function Autocomplete({ children, options, onClick }) {
   return (
