@@ -1,5 +1,6 @@
 import React from 'react'
 import './SearchBar.css'
+import { Autocomplete } from '../Autocomplete/Autocomplete'
 
 export class SearchBar extends React.Component {
   state = {
