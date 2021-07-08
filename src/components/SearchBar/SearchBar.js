@@ -94,12 +94,14 @@ export class SearchBar extends React.Component {
             onChange={this.handleTermChange}
             placeholder="Search Businesses"
           />
-          <input
-            type="text"
-            value={this.state.location}
-            onChange={this.handleLocationChange}
-            placeholder="Where?"
-          />
+          <Autocomplete options={this.state.locationOptions} onClick={this.handleLocationOption}>
+            <input
+              type="text"
+              value={this.state.location}
+              onChange={this.handleLocationChange}
+              placeholder="Where?"
+            />
+          </Autocomplete>
         </div>
         <fieldset className="SearchBar-distance-options">
           <legend>Optional</legend>
