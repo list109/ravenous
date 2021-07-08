@@ -45,8 +45,7 @@
   font-size: 0.77rem;
 }
 
-.SearchBar-fields input:last-child,
-.SearchBar-distance-options label:last-child {
+.SearchBar-fields input:last-child {
   margin-right: 0;
 }
 
@@ -96,6 +95,10 @@
   font-weight: 200;
   color: #fff;
   margin-right: 2.22rem;
+}
+
+.SearchBar-distance-options label:last-child {
+  margin-right: 0;
 }
 
 .SearchBar-submit {
