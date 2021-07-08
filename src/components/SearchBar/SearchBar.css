@@ -45,10 +45,6 @@
   font-size: 0.77rem;
 }
 
-.SearchBar-fields input:last-child {
-  margin-right: 0;
-}
-
 .SearchBar-fields {
   display: flex;
   justify-content: center;
@@ -59,6 +55,10 @@
   width: 21rem;
   padding: 0.66rem 1rem;
   margin-right: 2.22rem;
+}
+
+.SearchBar-fields input:last-child {
+  margin-right: 0;
 }
 
 .SearchBar-distance-options {
