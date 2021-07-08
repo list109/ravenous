@@ -38,6 +38,10 @@ export class SearchBar extends React.Component {
     })
   }
 
+  handleLocationOption = option => {
+    this.setState({ location: option, locationOptions: [] })
+  }
+
   handleRadiusChange = ({ target }) => {
     if (target.value > 40000) return
 
