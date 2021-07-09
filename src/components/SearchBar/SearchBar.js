@@ -37,6 +37,20 @@ export class SearchBar extends React.Component {
     this.setState({
       location: target.value
     })
+
+    Yelp.searchBusinesses({ location: target.value, limit: 5 })
+      .then(businesses => {
+        this.setState({
+          locationOptions: businesses.map(({ address, city, state, country }) => {
+            return `${address}${city && `, ${city}`}${state && `, ${state}`} ${
+              country && `, ${country}`
+            }`
+          })
+        })
+      })
+      .catch(error => {
+        console.log(error.message)
+      })
   }
 
   handleLocationOption = option => {
