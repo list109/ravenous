@@ -75,7 +75,7 @@ export const Yelp = {
     url,
     distance
   }) {
-    const { address1: address, city, state, zip_code: zipCode } = location
+    const { address1: address, city, state, country, zip_code: zipCode } = location
     const category = categories.map(({ title }) => title).join(', ')
 
     return {
@@ -85,6 +85,7 @@ export const Yelp = {
       address,
       city,
       state,
+      country,
       zipCode,
       category,
       rating,
