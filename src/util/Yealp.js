@@ -104,5 +104,5 @@ class FetchError extends Error {
 
 // handle uncaught failed fetch through
 window.addEventListener('unhandledrejection', event => {
-  console.log(event.reason.message)
+  console.log(event.message)
 })
