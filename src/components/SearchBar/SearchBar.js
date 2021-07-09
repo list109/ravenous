@@ -1,6 +1,7 @@
 import React from 'react'
 import './SearchBar.css'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
+import { Yelp } from '../../util/Yealp'
 
 export class SearchBar extends React.Component {
   state = {
