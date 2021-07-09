@@ -13,7 +13,7 @@ export class App extends React.Component {
       return
     }
 
-    Yelp.search({ term, location, sortBy, radius, onlyOpened })
+    Yelp.searchBusinesses({ term, location, sortBy, radius, onlyOpened })
       .then(businesses => {
         this.setState({ businesses, errorMessage: '' })
       })
