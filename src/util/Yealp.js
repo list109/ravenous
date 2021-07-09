@@ -4,6 +4,8 @@ const apiKey =
 
 export const Yelp = {
   searchApiUrl: '/v3/businesses/search',
+
+  async searchBusinesses({ term = '', location = '', sortBy = '', radius = '', onlyOpened = '' }) {
     // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
     // const endpoint = 'https://api.yelp.com/v3/businesses/search'
     // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
