@@ -9,8 +9,17 @@ export const Yelp = {
     // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
     // const endpoint = 'https://api.yelp.com/v3/businesses/search'
     // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
-    const areaRadius = radius && `&radius=${radius}`
-    const urlToFetch = `/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}${areaRadius}&open_now=${onlyOpened}`
+  getSearchUrl({ term, location, sortBy, radius, onlyOpened }) {
+    let url = `${this.searchApiUrl}?`
+
+    url = term ? `${url}term=${term}&` : url
+    url = location ? `${url}location=${location}&` : url
+    url = sortBy ? `${url}sort_by=${sortBy}&` : url
+    url = radius ? `${url}radius=${radius}&` : url
+    url = onlyOpened ? `${url}open_now=${onlyOpened}&` : url
+
+    return url.endsWith('&') ? url.slice(0, -1) : url
+  },
 
     let response
 
