@@ -8,7 +8,7 @@ export class App extends React.Component {
   state = { businesses: [], errorMessage: '' }
 
   searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
-    if (term === '' || location === '') {
+    if (term === '' && location === '') {
       this.setState({ errorMessage: this.getErrorMessage(400) })
       return
     }
