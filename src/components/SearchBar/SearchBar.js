@@ -14,6 +14,7 @@ export class SearchBar extends React.Component {
   }
 
   unfocusTimeOutId = null
+  locationTimeOutId = null
 
   sortByOptions = {
     'Best Match': 'best_match',
@@ -40,7 +41,12 @@ export class SearchBar extends React.Component {
       location: target.value
     })
 
-    this.searchLocationOptions({ location: target.value, limit: 5 })
+    clearTimeout(this.locationTimeoutid)
+
+    this.locationTimeoutid = setTimeout(
+      () => this.searchLocationOptions({ location: target.value, limit: 5 }),
+      700
+    )
   }
 
   searchLocationOptions = ({ location, limit }) => {
