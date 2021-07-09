@@ -13,6 +13,8 @@ export class SearchBar extends React.Component {
     locationOptions: []
   }
 
+  timeOutId = null
+
   sortByOptions = {
     'Best Match': 'best_match',
     'Highest Rated': 'rating',
@@ -49,12 +51,26 @@ export class SearchBar extends React.Component {
         })
       })
       .catch(error => {
-        console.log(error.message)
+        this.setState({
+          locationOptions: []
+        })
       })
   }
 
   handleLocationOption = option => {
     this.setState({ location: option, locationOptions: [] })
+  }
+
+  handleLocationUnfocuse = event => {
+    this.timeOutId = setTimeout(() => {
+      this.setState({
+        locationOptions: []
+      })
+    })
+  }
+
+  handleLocationFocuse = () => {
+    clearTimeout(this.timeOutId)
   }
 
   handleRadiusChange = ({ target }) => {
