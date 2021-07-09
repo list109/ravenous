@@ -1,7 +1,7 @@
 import React from 'react'
 import './Autocomplete.css'
 
-export function Autocomplete({ children, options = [], onClick }) {
+export function Autocomplete({ children, options = [], onClick, onBlur, onFocus }) {
   const autocompleteList = Boolean(options.length) && (
     <ul className="Autocomplete-list">
       {options.map((option, i) => (
@@ -13,7 +13,7 @@ export function Autocomplete({ children, options = [], onClick }) {
   )
 
   return (
-    <div className="Autocomplete">
+    <div className="Autocomplete" onBlur={onBlur} onFocus={onFocus}>
       {children}
       {autocompleteList}
     </div>
