@@ -5,18 +5,25 @@ const apiKey =
 export const Yelp = {
   searchApiUrl: '/v3/businesses/search',
 
-  async searchBusinesses({ term = '', location = '', sortBy = '', radius = '', onlyOpened = '' }) {
+  async searchBusinesses({
+    term = '',
+    location = '',
+    sortBy = '',
+    radius = '',
+    onlyOpened = '',
+    limit = ''
+  }) {
     // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
     // const endpoint = 'https://api.yelp.com/v3/businesses/search'
     // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
-    const urlToFetch = this.getSearchUrl({ term, location, sortBy, radius, onlyOpened })
+    const urlToFetch = this.getSearchUrl({ term, location, sortBy, radius, onlyOpened, limit })
 
     const { businesses = [] } = await this.search(urlToFetch)
 
     return businesses.map(business => this.getBusinessData(business))
   },
 
-  getSearchUrl({ term, location, sortBy, radius, onlyOpened }) {
+  getSearchUrl({ term, location, sortBy, radius, onlyOpened, limit }) {
     let url = `${this.searchApiUrl}?`
 
     url = term ? `${url}term=${term}&` : url
@@ -24,6 +31,7 @@ export const Yelp = {
     url = sortBy ? `${url}sort_by=${sortBy}&` : url
     url = radius ? `${url}radius=${radius}&` : url
     url = onlyOpened ? `${url}open_now=${onlyOpened}&` : url
+    url = limit ? `${url}limit=${limit}&` : url
 
     return url.endsWith('&') ? url.slice(0, -1) : url
   },
