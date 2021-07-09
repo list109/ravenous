@@ -125,7 +125,12 @@ export class SearchBar extends React.Component {
             onChange={this.handleTermChange}
             placeholder="Search Businesses"
           />
-          <Autocomplete options={this.state.locationOptions} onClick={this.handleLocationOption}>
+          <Autocomplete
+            options={this.state.locationOptions}
+            onClick={this.handleLocationOption}
+            onBlur={this.handleLocationUnfocuse}
+            onFocus={this.handleLocationFocuse}
+          >
             <input
               type="text"
               value={this.state.location}
