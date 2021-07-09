@@ -9,7 +9,7 @@ export class SearchBar extends React.Component {
     location: '',
     radius: '',
     onlyOpened: false,
-    locationOptions: ['value1', 'value2', 'value3']
+    locationOptions: []
   }
 
   sortByOptions = {
