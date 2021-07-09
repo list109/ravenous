@@ -43,6 +43,13 @@ export class SearchBar extends React.Component {
 
     clearTimeout(this.locationTimeoutid)
 
+    if (target.value === '') {
+      this.setState({
+        locationOptions: []
+      })
+      return
+    }
+
     this.locationTimeoutid = setTimeout(
       () => this.searchLocationOptions({ location: target.value, limit: 5 }),
       700
