@@ -9,6 +9,13 @@ export const Yelp = {
     // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
     // const endpoint = 'https://api.yelp.com/v3/businesses/search'
     // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
+    const urlToFetch = this.getSearchUrl({ term, location, sortBy, radius, onlyOpened })
+
+    const { businesses = [] } = await this.search(urlToFetch)
+
+    return businesses.map(business => this.getBusinessData(business))
+  },
+
   getSearchUrl({ term, location, sortBy, radius, onlyOpened }) {
     let url = `${this.searchApiUrl}?`
 
@@ -21,6 +28,7 @@ export const Yelp = {
     return url.endsWith('&') ? url.slice(0, -1) : url
   },
 
+  async search(urlToFetch) {
     let response
 
     try {
@@ -44,9 +52,8 @@ export const Yelp = {
     } catch (error) {
       throw new FetchError(null, 'Transformation to json format was failed')
     }
-    const { businesses = [] } = jsonResponse
 
-    return businesses.map(business => this.getBusinessData(business))
+    return jsonResponse
   },
 
   getBusinessData({
