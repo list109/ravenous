@@ -1,8 +1,8 @@
 import React from 'react'
 import './Autocomplete.css'
 
-export function Autocomplete({ children, options = [], onClick, onBlur, onFocus }) {
-  const autocompleteList = Boolean(options.length) && (
+export function Autocomplete({ children, options = [], isOpen, onClick, onBlur, onFocus }) {
+  const autocompleteList = isOpen && options.length > 0 && (
     <ul className="Autocomplete-list">
       {options.map((option, i) => (
         <li key={i} className="Autocomplete-option" onClick={() => onClick(option)} tabIndex="0">

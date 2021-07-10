@@ -10,7 +10,8 @@ export class SearchBar extends React.Component {
     location: '',
     radius: '',
     onlyOpened: false,
-    locationOptions: []
+    locationOptions: [],
+    locationOptionsIsOpen: false
   }
 
   unfocusTimeOutId = null
@@ -78,16 +79,19 @@ export class SearchBar extends React.Component {
     this.setState({ location: option, locationOptions: [] })
   }
 
-  handleLocationUnfocuse = event => {
+  handleLocationUnfocuse = () => {
     this.unfocusTimeOutId = setTimeout(() => {
       this.setState({
-        locationOptions: []
+        locationOptionsIsOpen: false
       })
     })
   }
 
   handleLocationFocuse = () => {
     clearTimeout(this.unfocusTimeOutId)
+    this.setState({
+      locationOptionsIsOpen: true
+    })
   }
 
   handleRadiusChange = ({ target }) => {
@@ -147,6 +151,7 @@ export class SearchBar extends React.Component {
             onClick={this.handleLocationOption}
             onBlur={this.handleLocationUnfocuse}
             onFocus={this.handleLocationFocuse}
+            isOpen={this.state.locationOptionsIsOpen}
           >
             <input
               type="text"
