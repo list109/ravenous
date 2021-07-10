@@ -1,9 +1,14 @@
 .Autocomplete {
+  width: 23rem;
   position: relative;
+  margin-right: 2.22rem;
+}
+
+.Autocomplete:last-child {
+  margin-right: 0;
 }
 
 .Autocomplete input {
-  box-sizing: border-box;
   width: 100%;
 }
 
@@ -36,4 +41,14 @@
   background: rgb(152, 214, 255);
   color: #fff;
   outline: none;
+}
+
+@media only screen and (max-width: 560px) {
+  .Autocomplete {
+    margin-right: 0;
+    margin-bottom: 0.86rem;
+  }
+  .Autocomplete input {
+    margin: 0;
+  }
 }

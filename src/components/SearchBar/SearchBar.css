@@ -52,7 +52,8 @@
 }
 
 .SearchBar-fields input {
-  width: 21rem;
+  box-sizing: border-box;
+  width: 23rem;
   padding: 0.66rem 1rem;
   margin-right: 2.22rem;
 }
