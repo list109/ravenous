@@ -14,8 +14,8 @@ export class SearchBar extends React.Component {
     locationOptionsIsOpen: false
   }
 
-  unfocusTimeOutId = null
-  locationTimeOutId = null
+  locationUnfocusTimeOutId = null
+  locationSearchTimeOutId = null
 
   sortByOptions = {
     'Best Match': 'best_match',
@@ -42,7 +42,7 @@ export class SearchBar extends React.Component {
       location: target.value
     })
 
-    clearTimeout(this.locationTimeOutId)
+    clearTimeout(this.locationSearchTimeOutId)
 
     if (target.value === '') {
       this.setState({
@@ -51,7 +51,7 @@ export class SearchBar extends React.Component {
       return
     }
 
-    this.locationTimeOutId = setTimeout(
+    this.locationSearchTimeOutId = setTimeout(
       () => this.searchLocationOptions({ location: target.value, limit: 5 }),
       700
     )
@@ -80,7 +80,7 @@ export class SearchBar extends React.Component {
   }
 
   handleLocationUnfocuse = () => {
-    this.unfocusTimeOutId = setTimeout(() => {
+    this.locationUnfocusTimeOutId = setTimeout(() => {
       this.setState({
         locationOptionsIsOpen: false
       })
@@ -88,7 +88,7 @@ export class SearchBar extends React.Component {
   }
 
   handleLocationFocuse = () => {
-    clearTimeout(this.unfocusTimeOutId)
+    clearTimeout(this.locationUnfocusTimeOutId)
     this.setState({
       locationOptionsIsOpen: true
     })
