@@ -114,6 +114,8 @@ export class SearchBar extends React.Component {
 
   handleSearch = e => {
     e.preventDefault()
+    this.setState({ locationOptionsIsOpen: false })
+
     const { sortBy, term, location, radius, onlyOpened } = this.state
     this.props.searchYelp({ sortBy, term, location, radius, onlyOpened })
   }
