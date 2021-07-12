@@ -46,7 +46,8 @@ export class SearchBar extends React.Component {
 
     if (target.value === '') {
       this.setState({
-        locationOptions: []
+        locationOptions: [],
+        locationOptionsIsOpen: false
       })
       return
     }
@@ -103,9 +104,10 @@ export class SearchBar extends React.Component {
 
   handleLocationUnfocuse = () => {
     this.locationUnfocusTimeOutId = setTimeout(() => {
-      this.setState({
-        locationOptionsIsOpen: false
-      })
+      this.setState(state => ({
+        locationOptionsIsOpen: false,
+        locationOptions: state.location ? state.locationOptions : []
+      }))
     })
   }
 
