@@ -79,6 +79,28 @@ export class SearchBar extends React.Component {
     this.setState({ location: option, locationOptions: [] })
   }
 
+  handleLocationClickOption = option => {
+    this.setState({ location: option, locationOptions: [] })
+  }
+
+  handleLocationKeyOption = ({ option, code, elem }) => {
+    const { previousElementSibling: prevElem, nextElementSibling: nextElem } = elem
+
+    switch (code) {
+      case 'Enter':
+        this.setState({ location: option, locationOptions: [] })
+        break
+      case 'ArrowUp':
+        prevElem && prevElem.focus()
+        break
+      case 'ArrowDown':
+        nextElem && nextElem.focus()
+        break
+      default:
+        return ''
+    }
+  }
+
   handleLocationUnfocuse = () => {
     this.locationUnfocusTimeOutId = setTimeout(() => {
       this.setState({
