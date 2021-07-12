@@ -1,9 +1,19 @@
 import React from 'react'
 import './Autocomplete.css'
 
-export function Autocomplete({ children, options = [], isOpen, onOption, onBlur, onFocus }) {
-  const handleClick = option => onOption(option)
-  const handleKeyPress = ({ option, code }) => code === 'Enter' && onOption(option)
+export function Autocomplete({
+  children,
+  options = [],
+  isOpen,
+  onBlur,
+  onFocus,
+  onClick,
+  onKeyDown
+}) {
+  const handleClick = option => onClick(option)
+  const handleKeyDown = ({ option, code, elem }) => {
+    onKeyDown({ option, code, elem })
+  }
 
   const autocompleteList = isOpen && options.length > 0 && (
     <ul className="Autocomplete-list">
@@ -12,7 +22,7 @@ export function Autocomplete({ children, options = [], isOpen, onOption, onBlur,
           key={i}
           className="Autocomplete-option"
           onClick={() => handleClick(option)}
-          onKeyPress={({ code }) => handleKeyPress({ option, code })}
+          onKeyDown={({ code, target: elem }) => handleKeyDown({ option, code, elem })}
           tabIndex="0"
         >
           {option}

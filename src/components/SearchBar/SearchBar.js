@@ -173,6 +173,8 @@ export class SearchBar extends React.Component {
           <Autocomplete
             options={this.state.locationOptions}
             onOption={this.handleLocationOption}
+            onClick={this.handleLocationClickOption}
+            onKeyDown={this.handleLocationKeyOption}
             onBlur={this.handleLocationUnfocuse}
             onFocus={this.handleLocationFocuse}
             isOpen={this.state.locationOptionsIsOpen}
