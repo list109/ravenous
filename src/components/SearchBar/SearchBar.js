@@ -106,20 +106,18 @@ export class SearchBar extends React.Component {
     }
   }
 
-  handleLocationUnfocuse = () => {
-    this.locationUnfocusTimeOutId = setTimeout(() => {
-      this.setState(state => ({
-        locationOptionsIsOpen: false,
-        locationOptions: state.location ? state.locationOptions : []
-      }))
-    })
-  }
-
-  handleLocationFocuse = () => {
-    clearTimeout(this.locationUnfocusTimeOutId)
-    this.setState({
-      locationOptionsIsOpen: true
-    })
+  handleLocationKey = e => {
+    const { current: options } = this.locationAutocompleteRef
+    switch (e.code) {
+      case 'ArrowDown':
+        options.firstElementChild && options.firstElementChild.focus()
+        break
+      case 'ArrowUp':
+        options.lastElementChild && options.lastElementChild.focus()
+        break
+      default:
+        return ''
+    }
   }
 
   handleRadiusChange = ({ target }) => {
