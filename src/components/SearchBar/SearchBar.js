@@ -127,10 +127,10 @@ export class SearchBar extends React.Component {
     const { current: options } = this.locationAutocompleteRef
     switch (e.code) {
       case 'ArrowDown':
-        options.firstElementChild && options.firstElementChild.focus()
+        options?.firstElementChild && options.firstElementChild.focus()
         break
       case 'ArrowUp':
-        options.lastElementChild && options.lastElementChild.focus()
+        options?.lastElementChild && options.lastElementChild.focus()
         break
       default:
         return ''
