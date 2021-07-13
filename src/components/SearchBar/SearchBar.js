@@ -96,10 +96,10 @@ export class SearchBar extends React.Component {
         this.setState({ location: option, locationOptions: [] })
         break
       case 'ArrowUp':
-        prevElem && prevElem.focus()
+        prevElem ? prevElem.focus() : this.locationRef.current.focus()
         break
       case 'ArrowDown':
-        nextElem && nextElem.focus()
+        nextElem ? nextElem.focus() : this.locationRef.current.focus()
         break
       default:
         return ''
