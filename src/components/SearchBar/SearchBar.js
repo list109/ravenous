@@ -48,8 +48,7 @@ export class SearchBar extends React.Component {
 
     if (target.value === '') {
       this.setState({
-        locationOptions: [],
-        locationOptionsIsOpen: false
+        locationOptions: []
       })
       return
     }
@@ -188,7 +187,6 @@ export class SearchBar extends React.Component {
           />
           <Autocomplete
             options={this.state.locationOptions}
-            onOption={this.handleLocationOption}
             onClick={this.handleLocationClickOption}
             onKeyDown={this.handleLocationKeyOption}
             onBlur={this.handleLocationUnfocuse}
