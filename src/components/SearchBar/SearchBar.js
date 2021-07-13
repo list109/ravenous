@@ -117,6 +117,10 @@ export class SearchBar extends React.Component {
     }
   }
 
+  handleLocationOverOption = optionElem => {
+    optionElem.focus()
+  }
+
   handleLocationKey = e => {
     const { current: options } = this.locationAutocompleteRef
     switch (e.code) {
@@ -191,6 +195,7 @@ export class SearchBar extends React.Component {
             onKeyDown={this.handleLocationKeyOption}
             onBlur={this.handleLocationUnfocuse}
             onFocus={this.handleLocationFocuse}
+            onPointerOver={this.handleLocationOverOption}
             isOpen={this.state.locationOptionsIsOpen}
             ref={this.locationAutocompleteRef}
           >
