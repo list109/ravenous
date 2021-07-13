@@ -79,7 +79,7 @@ export class SearchBar extends React.Component {
       })
   }
 
-  handleLocationOption = option => {
+  handleLocationClickOption = option => {
     this.setState({ location: option, locationOptions: [] })
   }
 
