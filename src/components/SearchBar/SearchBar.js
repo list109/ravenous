@@ -63,13 +63,15 @@ export class SearchBar extends React.Component {
   searchLocationOptions = ({ location, limit }) => {
     Yelp.searchBusinesses({ location, limit })
       .then(businesses => {
-        this.setState({
-          locationOptions: businesses.map(({ address, city, state, country }) => {
-            return `${address}${city && `, ${city}`}${state && `, ${state}`} ${
-              country && `, ${country}`
-            }`
-          })
+        const options = businesses.map(({ address, city, state, country }) => {
+          return `${address}${city && `, ${city}`}${state && `, ${state}`} ${
+            country && `, ${country}`
+          }`
         })
+
+        if (this.state.location === location) {
+          this.setState({ locationOptions: options })
+        }
       })
       .catch(error => {
         this.setState({
