@@ -16,6 +16,8 @@ export class SearchBar extends React.Component {
 
   locationUnfocusTimeOutId = null
   locationSearchTimeOutId = null
+  locationRef = React.createRef()
+  locationAutocompleteRef = React.createRef()
 
   sortByOptions = {
     'Best Match': 'best_match',
