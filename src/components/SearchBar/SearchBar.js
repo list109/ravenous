@@ -81,6 +81,7 @@ export class SearchBar extends React.Component {
 
   handleLocationClickOption = option => {
     this.setState({ location: option, locationOptions: [] })
+    this.locationRef.current.focus()
   }
 
   handleLocationUnfocuse = () => {
@@ -105,6 +106,7 @@ export class SearchBar extends React.Component {
     switch (code) {
       case 'Enter':
         this.setState({ location: option, locationOptions: [] })
+        setTimeout(() => this.locationRef.current.focus())
         break
       case 'ArrowUp':
         prevElem ? prevElem.focus() : this.locationRef.current.focus()
