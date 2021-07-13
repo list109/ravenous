@@ -194,12 +194,14 @@ export class SearchBar extends React.Component {
             onBlur={this.handleLocationUnfocuse}
             onFocus={this.handleLocationFocuse}
             isOpen={this.state.locationOptionsIsOpen}
+            ref={this.locationAutocompleteRef}
           >
             <input
               type="text"
               value={this.state.location}
               onChange={this.handleLocationChange}
               placeholder="Where?"
+              ref={this.locationRef}
             />
           </Autocomplete>
         </div>
