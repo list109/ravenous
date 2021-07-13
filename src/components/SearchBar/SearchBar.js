@@ -198,6 +198,7 @@ export class SearchBar extends React.Component {
               type="text"
               value={this.state.location}
               onChange={this.handleLocationChange}
+              onKeyDown={this.handleLocationKey}
               placeholder="Where?"
               ref={this.locationRef}
             />
