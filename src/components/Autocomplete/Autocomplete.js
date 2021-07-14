@@ -4,8 +4,9 @@ import './Autocomplete.css'
 export const Autocomplete = React.forwardRef(
   ({ children, options = [], isOpen, onBlur, onFocus, onClick, onKeyDown, onPointerOver }, ref) => {
     const handleClick = option => onClick(option)
-    const handleKeyDown = ({ option, code, elem }) => {
-      onKeyDown({ option, code, elem })
+    const handleKeyDown = ({ event: e, option }) => {
+      const { code, target: elem } = e
+      onKeyDown({ option, code, elem, event: e })
     }
     const handlePointerOver = ({ target }) => onPointerOver(target)
 
@@ -16,7 +17,7 @@ export const Autocomplete = React.forwardRef(
             key={i}
             className="Autocomplete-option"
             onClick={() => handleClick(option)}
-            onKeyDown={({ code, target: elem }) => handleKeyDown({ option, code, elem })}
+            onKeyDown={e => handleKeyDown({ event: e, option })}
             onPointerOver={handlePointerOver}
             tabIndex="0"
           >

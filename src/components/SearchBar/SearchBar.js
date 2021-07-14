@@ -100,7 +100,7 @@ export class SearchBar extends React.Component {
     })
   }
 
-  handleLocationKeyOption = ({ option, code, elem }) => {
+  handleLocationKeyOption = ({ option, code, elem, event: e }) => {
     const { previousElementSibling: prevElem, nextElementSibling: nextElem } = elem
 
     switch (code) {
