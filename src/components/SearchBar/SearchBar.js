@@ -110,9 +110,11 @@ export class SearchBar extends React.Component {
         break
       case 'ArrowUp':
         prevElem ? prevElem.focus() : this.locationRef.current.focus()
+        e.preventDefault()
         break
       case 'ArrowDown':
         nextElem ? nextElem.focus() : this.locationRef.current.focus()
+        e.preventDefault()
         break
       default:
         return ''
@@ -128,9 +130,11 @@ export class SearchBar extends React.Component {
     switch (e.code) {
       case 'ArrowDown':
         options?.firstElementChild && options.firstElementChild.focus()
+        e.preventDefault()
         break
       case 'ArrowUp':
         options?.lastElementChild && options.lastElementChild.focus()
+        e.preventDefault()
         break
       default:
         return ''
