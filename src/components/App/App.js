@@ -9,7 +9,7 @@ export class App extends React.Component {
 
   searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
     if (term === '' && location === '') {
-      this.setState({ errorMessage: this.getErrorMessage(400) })
+      this.setState({ errorMessage: this.getErrorMessage({ status: 400 }) })
       return
     }
 
@@ -22,7 +22,7 @@ export class App extends React.Component {
       })
   }
 
-  getErrorMessage(status, message = 'Something went wrong, please try again') {
+  getErrorMessage({ status, message = 'Something went wrong, please try again' }) {
     switch (status) {
       case 400:
         return 'Please, try to change some of the fields value'
