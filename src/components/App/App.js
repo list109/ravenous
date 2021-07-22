@@ -5,13 +5,18 @@ import { SearchBar } from '../SearchBar/SearchBar'
 import { Yelp } from '../../util/Yealp'
 
 export class App extends React.Component {
-  state = { businesses: [], errorMessage: '' }
+  state = { businesses: [], errorMessage: '', isRequestRun: false }
 
   searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
     if (term === '' && location === '') {
       this.setState({ errorMessage: this.getErrorMessage({ status: 400 }) })
       return
     }
+
+    if (this.state.isRequestRun) return
+    this.setState({
+      isRequestRun: true
+    })
 
     Yelp.searchBusinesses({ term, location, sortBy, radius, onlyOpened })
       .then(businesses => {
@@ -20,6 +25,7 @@ export class App extends React.Component {
       .catch(error => {
         this.setState({ errorMessage: this.getErrorMessage(error) })
       })
+      .finally(() => this.setState({ isRequestRun: false }))
   }
 
   getErrorMessage({ status, message = 'Something went wrong, please try again' }) {
@@ -32,17 +38,23 @@ export class App extends React.Component {
   }
 
   render() {
-    const { businesses, errorMessage } = this.state
+    const { businesses, errorMessage, isRequestRun } = this.state
+    const output = errorMessage ? (
+      <p className="error-message">{errorMessage}</p>
+    ) : (
+      <BusinessList businesses={businesses} />
+    )
+    const loading = (
+      <div>
+        <p>loading...</p>
+      </div>
+    )
 
     return (
       <div className="App">
         <h1>ravenous</h1>
         <SearchBar searchYelp={this.searchYelp} />
-        {errorMessage ? (
-          <p className="error-message">{errorMessage}</p>
-        ) : (
-          <BusinessList businesses={businesses} />
-        )}
+        {isRequestRun ? loading : output}
       </div>
     )
   }
