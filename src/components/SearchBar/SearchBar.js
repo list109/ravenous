@@ -19,6 +19,8 @@ export class SearchBar extends React.Component {
   locationSearchTimeOutId = null
   locationRef = React.createRef()
 
+  isWaitingMainSearch = false
+
   sortByOptions = {
     'Best Match': 'best_match',
     'Highest Rated': 'rating',
@@ -44,6 +46,7 @@ export class SearchBar extends React.Component {
       location: target.value
     })
 
+    this.isWaitingMainSearch = false
     clearTimeout(this.locationSearchTimeOutId)
 
     if (target.value === '') {
@@ -69,7 +72,7 @@ export class SearchBar extends React.Component {
           }`
         })
 
-        if (this.state.location === location) {
+        if (this.state.location === location && this.isWaitingMainSearch === false) {
           this.setState({ locationOptions: options })
         }
       })
@@ -171,6 +174,7 @@ export class SearchBar extends React.Component {
   handleSearch = e => {
     e.preventDefault()
     this.setState({ locationOptions: [] })
+    this.isWaitingMainSearch = true
 
     const { sortBy, term, location, radius, onlyOpened } = this.state
     this.props.searchYelp({ sortBy, term, location, radius, onlyOpened })
