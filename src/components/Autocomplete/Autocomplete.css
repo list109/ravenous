@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 
-/* .Autocomplete-option:hover, */
+.Autocomplete-option.focus,
 .Autocomplete-option:focus {
   background: rgb(152, 214, 255);
   color: #fff;

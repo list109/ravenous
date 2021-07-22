@@ -1,37 +1,39 @@
 import React from 'react'
 import './Autocomplete.css'
 
-export const Autocomplete = React.forwardRef(
-  ({ children, options = [], isOpen, onBlur, onFocus, onClick, onKeyDown, onPointerOver }, ref) => {
-    const handleClick = option => onClick(option)
-    const handleKeyDown = ({ event: e, option }) => {
-      const { code, target: elem } = e
-      onKeyDown({ option, code, elem, event: e })
-    }
-    const handlePointerOver = ({ target }) => onPointerOver(target)
+export function Autocomplete({
+  children,
+  options = [],
+  isOpen,
+  onBlur,
+  onFocus,
+  onClick,
+  onPointerOver,
+  focusedOptionIndex
+}) {
+  const handleClick = option => onClick(option)
+  const handlePointerOver = index => onPointerOver(index)
 
-    const autocompleteList = isOpen && options.length > 0 && (
-      <ul className="Autocomplete-list" ref={ref}>
-        {options.map((option, i) => (
-          <li
-            key={i}
-            className="Autocomplete-option"
-            onClick={() => handleClick(option)}
-            onKeyDown={e => handleKeyDown({ event: e, option })}
-            onPointerOver={handlePointerOver}
-            tabIndex="0"
-          >
-            {option}
-          </li>
-        ))}
-      </ul>
-    )
+  const autocompleteList = isOpen && options.length > 0 && (
+    <ul className="Autocomplete-list">
+      {options.map((option, i) => (
+        <li
+          key={i}
+          className={`Autocomplete-option ${focusedOptionIndex === i ? 'focus' : ''}`}
+          onClick={() => handleClick(option)}
+          onPointerOver={() => handlePointerOver(i)}
+          tabIndex="0"
+        >
+          {option}
+        </li>
+      ))}
+    </ul>
+  )
 
-    return (
-      <div className="Autocomplete" onBlur={onBlur} onFocus={onFocus}>
-        {children}
-        {autocompleteList}
-      </div>
-    )
-  }
-)
+  return (
+    <div className="Autocomplete" onBlur={onBlur} onFocus={onFocus}>
+      {children}
+      {autocompleteList}
+    </div>
+  )
+}

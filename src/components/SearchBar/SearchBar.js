@@ -11,13 +11,13 @@ export class SearchBar extends React.Component {
     radius: '',
     onlyOpened: false,
     locationOptions: [],
-    locationOptionsIsOpen: false
+    locationOptionsIsOpen: false,
+    locationFocusedOptionIndex: 0
   }
 
   locationUnfocusTimeOutId = null
   locationSearchTimeOutId = null
   locationRef = React.createRef()
-  locationAutocompleteRef = React.createRef()
 
   sortByOptions = {
     'Best Match': 'best_match',
@@ -48,7 +48,8 @@ export class SearchBar extends React.Component {
 
     if (target.value === '') {
       this.setState({
-        locationOptions: []
+        locationOptions: [],
+        locationFocusedOptionIndex: 0
       })
       return
     }
@@ -80,7 +81,15 @@ export class SearchBar extends React.Component {
   }
 
   handleLocationClickOption = option => {
-    this.setState({ location: option, locationOptions: [] })
+    this.setLocationOption(option)
+  }
+
+  setLocationOption = option => {
+    this.setState({
+      location: option,
+      locationOptions: [],
+      locationFocusedOptionIndex: 0
+    })
     this.locationRef.current.focus()
   }
 
@@ -100,45 +109,36 @@ export class SearchBar extends React.Component {
     })
   }
 
-  handleLocationKeyOption = ({ option, code, elem, event: e }) => {
-    const { previousElementSibling: prevElem, nextElementSibling: nextElem } = elem
-
-    switch (code) {
-      case 'Enter':
-        this.setState({ location: option, locationOptions: [] })
-        setTimeout(() => this.locationRef.current.focus())
-        break
-      case 'ArrowUp':
-        prevElem ? prevElem.focus() : this.locationRef.current.focus()
-        e.preventDefault()
-        break
-      case 'ArrowDown':
-        nextElem ? nextElem.focus() : this.locationRef.current.focus()
-        e.preventDefault()
-        break
-      default:
-        return ''
-    }
-  }
-
-  handleLocationOverOption = optionElem => {
-    optionElem.focus()
-  }
-
   handleLocationKey = e => {
-    const { current: options } = this.locationAutocompleteRef
+    const { locationOptions, locationFocusedOptionIndex: index } = this.state
+
     switch (e.code) {
-      case 'ArrowDown':
-        options?.firstElementChild && options.firstElementChild.focus()
+      case 'Enter':
+        if (locationOptions.length === 0) return
+        this.setLocationOption(locationOptions[index])
         e.preventDefault()
         break
       case 'ArrowUp':
-        options?.lastElementChild && options.lastElementChild.focus()
+        this.setState({
+          locationFocusedOptionIndex: index - 1 < 0 ? locationOptions.length - 1 : index - 1
+        })
+        e.preventDefault()
+        break
+      case 'ArrowDown':
+        this.setState({
+          locationFocusedOptionIndex: index + 1 === locationOptions.length ? 0 : index + 1
+        })
         e.preventDefault()
         break
       default:
         return ''
     }
+  }
+
+  handleLocationOverOption = index => {
+    this.setState({
+      locationFocusedOptionIndex: index
+    })
   }
 
   handleRadiusChange = ({ target }) => {
@@ -198,12 +198,11 @@ export class SearchBar extends React.Component {
           <Autocomplete
             options={this.state.locationOptions}
             onClick={this.handleLocationClickOption}
-            onKeyDown={this.handleLocationKeyOption}
             onBlur={this.handleLocationUnfocuse}
             onFocus={this.handleLocationFocuse}
             onPointerOver={this.handleLocationOverOption}
             isOpen={this.state.locationOptionsIsOpen}
-            ref={this.locationAutocompleteRef}
+            focusedOptionIndex={this.state.locationFocusedOptionIndex}
           >
             <input
               type="text"
