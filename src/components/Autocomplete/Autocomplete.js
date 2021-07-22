@@ -7,12 +7,12 @@ export function Autocomplete({
   isOpen,
   onBlur,
   onFocus,
-  onClick,
-  onPointerOver,
+  onOptionClick,
+  onOptionPointerOver,
   focusedOptionIndex
 }) {
-  const handleClick = option => onClick(option)
-  const handlePointerOver = index => onPointerOver(index)
+  const handleClick = option => onOptionClick(option)
+  const handlePointerOver = index => onOptionPointerOver(index)
 
   const autocompleteList = isOpen && options.length > 0 && (
     <ul className="Autocomplete-list">

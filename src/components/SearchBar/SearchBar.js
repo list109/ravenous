@@ -111,6 +111,8 @@ export class SearchBar extends React.Component {
 
   handleLocationKey = e => {
     const { locationOptions, locationFocusedOptionIndex: index } = this.state
+    const getNextIndex = index => (index + 1 === locationOptions.length ? 0 : index + 1)
+    const getPrevIndex = index => (index - 1 < 0 ? locationOptions.length - 1 : index - 1)
 
     switch (e.code) {
       case 'Enter':
@@ -120,13 +122,20 @@ export class SearchBar extends React.Component {
         break
       case 'ArrowUp':
         this.setState({
-          locationFocusedOptionIndex: index - 1 < 0 ? locationOptions.length - 1 : index - 1
+          locationFocusedOptionIndex: getPrevIndex(index)
         })
         e.preventDefault()
         break
       case 'ArrowDown':
         this.setState({
-          locationFocusedOptionIndex: index + 1 === locationOptions.length ? 0 : index + 1
+          locationFocusedOptionIndex: getNextIndex(index)
+        })
+        e.preventDefault()
+        break
+      case 'Tab':
+        if (locationOptions.length === 0) return
+        this.setState({
+          locationFocusedOptionIndex: e.shiftKey ? getPrevIndex(index) : getNextIndex(index)
         })
         e.preventDefault()
         break
@@ -197,10 +206,11 @@ export class SearchBar extends React.Component {
           />
           <Autocomplete
             options={this.state.locationOptions}
-            onClick={this.handleLocationClickOption}
             onBlur={this.handleLocationUnfocuse}
             onFocus={this.handleLocationFocuse}
-            onPointerOver={this.handleLocationOverOption}
+            onOptionFocus={this.handleLocationOptionFocus}
+            onOptionClick={this.handleLocationClickOption}
+            onOptionPointerOver={this.handleLocationOverOption}
             isOpen={this.state.locationOptionsIsOpen}
             focusedOptionIndex={this.state.locationFocusedOptionIndex}
           >
