@@ -8,12 +8,13 @@ import { Loading } from '../Loading/Loading'
 export class App extends React.Component {
   state = { businesses: [], errorMessage: '', isRequestRun: false }
 
-  searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
-    if (term === '' && location === '') {
-      this.setState({ errorMessage: this.getErrorMessage({ status: 400 }) })
-      return
-    }
+  handleInvalidRequest = () => {
+    this.setState({
+      errorMessage: 'Please, fill the location field out and try again'
+    })
+  }
 
+  searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
     if (this.state.isRequestRun) return
     this.setState({
       isRequestRun: true,
