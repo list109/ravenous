@@ -73,7 +73,7 @@ export class SearchBar extends React.Component {
         })
 
         if (this.state.location === location && this.isWaitingMainSearch === false) {
-          this.setState({ locationOptions: options })
+          this.setState({ locationOptions: [this.state.location, ...options] })
         }
       })
       .catch(error => {

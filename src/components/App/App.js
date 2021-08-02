@@ -51,6 +51,7 @@ export class App extends React.Component {
         <h1>ravenous</h1>
         <SearchBar searchYelp={this.searchYelp} />
         {isRequestRun ? Loading : output}
+        {output}
       </div>
     )
   }
