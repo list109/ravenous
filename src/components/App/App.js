@@ -3,6 +3,7 @@ import './App.css'
 import { BusinessList } from '../BusinessList/BusinessList'
 import { SearchBar } from '../SearchBar/SearchBar'
 import { Yelp } from '../../util/Yealp'
+import { Loading } from '../Loading/Loading'
 
 export class App extends React.Component {
   state = { businesses: [], errorMessage: '', isRequestRun: false }
@@ -44,17 +45,12 @@ export class App extends React.Component {
     ) : (
       <BusinessList businesses={businesses} />
     )
-    const loading = (
-      <div>
-        <p>loading...</p>
-      </div>
-    )
 
     return (
       <div className="App">
         <h1>ravenous</h1>
         <SearchBar searchYelp={this.searchYelp} />
-        {isRequestRun ? loading : output}
+        {isRequestRun ? Loading : output}
       </div>
     )
   }
