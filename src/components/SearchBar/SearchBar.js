@@ -180,6 +180,11 @@ export class SearchBar extends React.Component {
     this.props.searchYelp({ sortBy, term, location, radius, onlyOpened })
   }
 
+  handleInvalid = e => {
+    e.preventDefault()
+    this.props.onInvalid()
+  }
+
   renderSortByOptions() {
     return Object.keys(this.sortByOptions).map(sortByOption => {
       const sortByOptionValue = this.sortByOptions[sortByOption]
@@ -197,7 +202,7 @@ export class SearchBar extends React.Component {
 
   render() {
     return (
-      <form className="SearchBar" onSubmit={this.handleSearch}>
+      <form className="SearchBar" onSubmit={this.handleSearch} onInvalid={this.handleInvalid}>
         <div className="SearchBar-sort-options">
           <ul>{this.renderSortByOptions()}</ul>
         </div>
@@ -225,6 +230,7 @@ export class SearchBar extends React.Component {
               onKeyDown={this.handleLocationKey}
               placeholder="Where?"
               ref={this.locationRef}
+              required={true}
             />
           </Autocomplete>
         </div>
