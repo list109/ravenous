@@ -16,7 +16,8 @@ export class App extends React.Component {
 
     if (this.state.isRequestRun) return
     this.setState({
-      isRequestRun: true
+      isRequestRun: true,
+      businesses: []
     })
 
     Yelp.searchBusinesses({ term, location, sortBy, radius, onlyOpened })
