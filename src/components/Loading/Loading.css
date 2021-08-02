@@ -1,0 +1,19 @@
+.Loading-icon {
+  display: flex;
+  justify-content: center;
+  margin: 4.4rem 10%;
+}
+
+.Loading-icon g {
+  animation: loading 2s steps(12) infinite;
+  transform-origin: center;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
