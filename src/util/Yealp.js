@@ -46,22 +46,30 @@ export const Yelp = {
         }
       })
     } catch (error) {
-      throw new FetchError(response.status, `Network error has occured:${error.message}`)
+      throw new FetchError(
+        response.status,
+        `Network error has occured, ${error.status}:${error.statusText}`
+      )
     }
 
     if (!response.ok) {
-      throw new FetchError(response.status, `${response.status}:${response.statusText}`)
+      let jsonResponse
+
+      try {
+        jsonResponse = await response.json()
+      } catch {}
+
+      const errorStatus = jsonResponse.error?.code
+      let errorMessage = jsonResponse.error?.description || response.statusText
+
+      throw new FetchError(errorStatus, errorMessage)
     }
 
-    let jsonResponse
-
     try {
-      jsonResponse = await response.json()
+      return await response.json()
     } catch (error) {
       throw new FetchError(null, 'Transformation to json format was failed')
     }
-
-    return jsonResponse
   },
 
   getBusinessData({
