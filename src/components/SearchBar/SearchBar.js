@@ -182,6 +182,7 @@ export class SearchBar extends React.Component {
 
   handleInvalid = e => {
     e.preventDefault()
+
     this.props.onInvalid()
   }
 
@@ -223,15 +224,17 @@ export class SearchBar extends React.Component {
             isOpen={this.state.locationOptionsIsOpen}
             focusedOptionIndex={this.state.locationFocusedOptionIndex}
           >
-            <input
-              type="text"
-              value={this.state.location}
-              onChange={this.handleLocationChange}
-              onKeyDown={this.handleLocationKey}
-              placeholder="Where?"
-              ref={this.locationRef}
-              required={true}
-            />
+            <p className="SearchBar-location">
+              <input
+                type="text"
+                value={this.state.location}
+                onChange={this.handleLocationChange}
+                onKeyDown={this.handleLocationKey}
+                placeholder="Where?"
+                ref={this.locationRef}
+                required={true}
+              />
+            </p>
           </Autocomplete>
         </div>
         <fieldset className="SearchBar-distance-options">
