@@ -34,7 +34,7 @@ export class App extends React.Component {
   getErrorMessage({ status, message = 'Something went wrong, please try again' }) {
     switch (status) {
       case 'LOCATION_NOT_FOUND':
-        return 'Please, try to change location'
+        return 'Please, try to change the location'
       default:
         return message
     }
