@@ -8,9 +8,9 @@ import { Loading } from '../Loading/Loading'
 export class App extends React.Component {
   state = { businesses: [], errorMessage: '', isRequestRun: false }
 
-  handleInvalidRequest = () => {
+  setErrorMessage = message => {
     this.setState({
-      errorMessage: 'Please, fill the location field out and try again'
+      errorMessage: message
     })
   }
 
@@ -51,7 +51,7 @@ export class App extends React.Component {
     return (
       <div className="App">
         <h1>ravenous</h1>
-        <SearchBar searchYelp={this.searchYelp} onInvalid={this.handleInvalidRequest} />
+        <SearchBar searchYelp={this.searchYelp} setErrorMessage={this.setErrorMessage} />
         {isRequestRun ? Loading : output}
       </div>
     )

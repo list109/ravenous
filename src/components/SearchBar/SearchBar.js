@@ -183,7 +183,7 @@ export class SearchBar extends React.Component {
   handleInvalid = e => {
     e.preventDefault()
 
-    this.props.onInvalid()
+    this.props.setErrorMessage('Please, fill the location field in')
   }
 
   renderSortByOptions() {
