@@ -66,6 +66,15 @@
   position: relative;
 }
 
+.SearchBar-location.invalid input {
+  color: #d4cfcf;
+  background-color: rgb(224, 56, 56);
+  caret-color: currentColor;
+}
+.SearchBar-location.invalid input::placeholder {
+  color: currentColor;
+}
+
 .SearchBar-location::after {
   content: '*';
   position: absolute;
@@ -74,6 +83,10 @@
   top: 0;
   padding: 0.2rem 0.3rem;
   color: rgb(207, 43, 43);
+}
+
+.SearchBar-location.invalid::after {
+  color: #d4cfcf;
 }
 
 .SearchBar-distance-options {
