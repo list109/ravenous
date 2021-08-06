@@ -28,6 +28,7 @@ export class App extends React.Component {
   }
 
   locationRef = React.createRef()
+  locationTimeOutId = null
   locationSearchTimeOutId = null
 
   handleSortByChange = sortOption => {
@@ -38,6 +39,18 @@ export class App extends React.Component {
   handleTermChange = value => {
     this.setState({
       term: value
+    })
+  }
+
+  handleTermFocus = () => {
+    this.setState({
+      isTermOptionsOpen: true
+    })
+  }
+
+  handleTermUnfocus = () => {
+    this.setState({
+      isTermOptionsOpen: false
     })
   }
 
@@ -101,26 +114,17 @@ export class App extends React.Component {
   }
 
   handleLocationFocus = () => {
+    clearTimeout(this.locationTimeOutId)
     this.setState({
       isLocationOptionsOpen: true
     })
   }
 
   handleLocationUnfocus = () => {
-    this.setState({
-      isLocationOptionsOpen: false
-    })
-  }
-
-  handleTermFocus = () => {
-    this.setState({
-      isTermOptionsOpen: true
-    })
-  }
-
-  handleTermUnfocus = () => {
-    this.setState({
-      isTermOptionsOpen: false
+    this.locationTimeOutId = setTimeout(() => {
+      this.setState({
+        isLocationOptionsOpen: false
+      })
     })
   }
 
