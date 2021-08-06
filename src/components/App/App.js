@@ -12,9 +12,13 @@ export class App extends React.Component {
     isRequestRun: false,
 
     sortBy: 'best_match',
-    term: '',
     radius: '',
     onlyOpened: false,
+
+    term: '',
+    termOptions: [],
+    isTermOptionsOpen: false,
+    termFocusedOptionIndex: 0,
 
     location: '',
     isLocationInvalid: false,
@@ -227,6 +231,9 @@ export class App extends React.Component {
       isRequestRun,
       sortBy,
       term,
+      termOptions,
+      isTermOptionsOpen,
+      termFocusedOptionIndex,
       radius,
       onlyOpend,
       location,
@@ -248,6 +255,9 @@ export class App extends React.Component {
           sortBy={sortBy}
           onSortByChange={this.handleSortByChange}
           term={term}
+          termOptions={termOptions}
+          isTermOptionsOpen={isTermOptionsOpen}
+          termFocusedOptionIndex={termFocusedOptionIndex}
           onTermChange={this.handleTermChange}
           radius={radius}
           onRadiusChange={this.handleRadiusChange}

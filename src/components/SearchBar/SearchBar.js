@@ -42,6 +42,9 @@ export class SearchBar extends React.Component {
   render() {
     const {
       term,
+      termOptions,
+      isTermOptionsOpen,
+      termFocusedOptionIndex,
       radius,
       location,
       locationRef,
@@ -64,12 +67,18 @@ export class SearchBar extends React.Component {
           <ul>{this.renderSortByOptions()}</ul>
         </div>
         <div className="SearchBar-fields">
-          <input
-            type="text"
-            value={term}
-            onChange={this.handleTermChange}
-            placeholder="Search Businesses"
-          />
+          <Autocomplete
+            options={termOptions}
+            isOpen={isTermOptionsOpen}
+            focusedOptionIndex={termFocusedOptionIndex}
+          >
+            <input
+              type="text"
+              value={term}
+              onChange={this.handleTermChange}
+              placeholder="Search Businesses"
+            />
+          </Autocomplete>
           <Autocomplete
             options={locationOptions}
             isOpen={isLocationOptionsOpen}
