@@ -45,6 +45,8 @@ export class SearchBar extends React.Component {
       termOptions,
       isTermOptionsOpen,
       termFocusedOptionIndex,
+      onTermFocus,
+      onTermUnfocus,
       radius,
       location,
       locationRef,
@@ -71,6 +73,8 @@ export class SearchBar extends React.Component {
             options={termOptions}
             isOpen={isTermOptionsOpen}
             focusedOptionIndex={termFocusedOptionIndex}
+            onFocus={onTermFocus}
+            onBlur={onTermUnfocus}
           >
             <input
               type="text"
@@ -83,8 +87,8 @@ export class SearchBar extends React.Component {
             options={locationOptions}
             isOpen={isLocationOptionsOpen}
             focusedOptionIndex={locationFocusedOptionIndex}
-            onBlur={onLocationUnfocus}
             onFocus={onLocationFocus}
+            onBlur={onLocationUnfocus}
             onOptionClick={onLocationOptionClick}
             onOptionPointerOver={onLocationOptionOver}
           >

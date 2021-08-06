@@ -112,6 +112,18 @@ export class App extends React.Component {
     })
   }
 
+  handleTermFocus = () => {
+    this.setState({
+      isTermOptionsOpen: true
+    })
+  }
+
+  handleTermUnfocus = () => {
+    this.setState({
+      isTermOptionsOpen: false
+    })
+  }
+
   handleLocationOptionClick = option => {
     this.setLocationOption(option)
   }
@@ -259,6 +271,8 @@ export class App extends React.Component {
           isTermOptionsOpen={isTermOptionsOpen}
           termFocusedOptionIndex={termFocusedOptionIndex}
           onTermChange={this.handleTermChange}
+          onTermFocus={this.handleTermFocus}
+          onTermUnfocus={this.handleTermUnfocus}
           radius={radius}
           onRadiusChange={this.handleRadiusChange}
           onlyOpend={onlyOpend}
