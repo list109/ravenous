@@ -2,24 +2,27 @@ import React from 'react'
 import './Autocomplete.css'
 
 export function Autocomplete({
+  name,
   children,
   options = [],
   isOpen,
-  onBlur,
-  onFocus,
+  focusedOptionIndex,
   onOptionClick,
   onOptionPointerOver,
-  focusedOptionIndex
+  onFocus,
+  onUnfocus
 }) {
-  const handleClick = option => onOptionClick(option)
-  const handlePointerOver = index => onOptionPointerOver(index)
+  const handleClick = option => onOptionClick(name, option)
+  const handlePointerOver = index => onOptionPointerOver(name, index)
+  const handleFocus = () => onFocus(name)
+  const handleBlur = () => onUnfocus(name)
 
   const autocompleteList = isOpen && options.length > 0 && (
     <ul className="Autocomplete-list">
       {options.map((option, i) => (
         <li
           key={i}
-          className={`Autocomplete-option ${focusedOptionIndex === i ? 'focus' : ''}`}
+          className={`Autocomplete-option${focusedOptionIndex === i ? ' focus' : ''}`}
           onClick={() => handleClick(option)}
           onPointerOver={() => handlePointerOver(i)}
           tabIndex="0"
@@ -31,7 +34,7 @@ export function Autocomplete({
   )
 
   return (
-    <div className="Autocomplete" onBlur={onBlur} onFocus={onFocus}>
+    <div className="Autocomplete" onFocus={handleFocus} onBlur={handleBlur}>
       {children}
       {autocompleteList}
     </div>

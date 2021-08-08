@@ -41,24 +41,23 @@ export class SearchBar extends React.Component {
 
   render() {
     const {
+      onFocus,
+      onUnfocus,
+      onKeyDown,
+      onOptionClick,
+      onOptionOver,
       term,
+      termRef,
       termOptions,
       isTermOptionsOpen,
       termFocusedOptionIndex,
-      onTermFocus,
-      onTermUnfocus,
-      radius,
       location,
       locationRef,
       locationOptions,
       isLocationOptionsOpen,
       locationFocusedOptionIndex,
-      onLocationUnfocus,
-      onLocationFocus,
-      onLocationKey,
-      onLocationOptionClick,
-      onLocationOptionOver,
       isLocationInvalid,
+      radius,
       onInvalid,
       onSubmit
     } = this.props
@@ -70,34 +69,42 @@ export class SearchBar extends React.Component {
         </div>
         <div className="SearchBar-fields">
           <Autocomplete
+            name="term"
             options={termOptions}
             isOpen={isTermOptionsOpen}
             focusedOptionIndex={termFocusedOptionIndex}
-            onFocus={onTermFocus}
-            onBlur={onTermUnfocus}
+            onOptionClick={onOptionClick}
+            onOptionPointerOver={onOptionOver}
+            onFocus={onFocus}
+            onUnfocus={onUnfocus}
           >
             <input
               type="text"
+              name="term"
               value={term}
               onChange={this.handleTermChange}
+              onKeyDown={onKeyDown}
               placeholder="Search Businesses"
+              ref={termRef}
             />
           </Autocomplete>
           <Autocomplete
+            name="location"
             options={locationOptions}
             isOpen={isLocationOptionsOpen}
             focusedOptionIndex={locationFocusedOptionIndex}
-            onFocus={onLocationFocus}
-            onBlur={onLocationUnfocus}
-            onOptionClick={onLocationOptionClick}
-            onOptionPointerOver={onLocationOptionOver}
+            onOptionClick={onOptionClick}
+            onOptionPointerOver={onOptionOver}
+            onFocus={onFocus}
+            onUnfocus={onUnfocus}
           >
-            <p className={`SearchBar-location ${isLocationInvalid ? 'invalid' : undefined}`}>
+            <p className={`SearchBar-location${isLocationInvalid ? ' invalid' : ''}`}>
               <input
                 type="text"
+                name="location"
                 value={location}
                 onChange={this.handleLocationChange}
-                onKeyDown={onLocationKey}
+                onKeyDown={onKeyDown}
                 placeholder="Where?"
                 ref={locationRef}
                 required={true}

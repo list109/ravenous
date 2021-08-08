@@ -31,6 +31,92 @@ export class App extends React.Component {
   locationTimeOutId = null
   locationSearchTimeOutId = null
 
+  termRef = React.createRef()
+  termTimeOutId = null
+  termSearchTimeOutId = null
+
+  handleFocus = name => {
+    clearTimeout(this[`${name}TimeOutId`])
+
+    this.setState({
+      [`is${this.getCapitalizedName(name)}OptionsOpen`]: true
+    })
+  }
+
+  handleUnfocus = name => {
+    this[`${name}TimeOutId`] = setTimeout(() => {
+      this.setState({
+        [`is${this.getCapitalizedName(name)}OptionsOpen`]: false
+      })
+    })
+  }
+
+  handleOptionFocus = () => clearTimeout(this.locationTimeOutId)
+
+  getCapitalizedName = name => name[0].toUpperCase() + name.slice(1)
+
+  handleKeyDown = e => {
+    const { name } = e.target
+    const options = this.state[`${name}Options`]
+    const index = this.state[`${name}FocusedOptionIndex`]
+
+    const getNextIndex = index => (index + 1 === options.length ? 0 : index + 1)
+    const getPrevIndex = index => (index - 1 < 0 ? options.length - 1 : index - 1)
+
+    switch (e.code) {
+      case 'Enter':
+        if (options.length === 0) return
+        this.setOption(name, options[index])
+        e.preventDefault()
+        break
+      case 'ArrowUp':
+        this.setState({
+          [`${name}FocusedOptionIndex`]: getPrevIndex(index)
+        })
+        e.preventDefault()
+        break
+      case 'ArrowDown':
+        this.setState({
+          [`${name}FocusedOptionIndex`]: getNextIndex(index)
+        })
+        e.preventDefault()
+        break
+      case 'Tab':
+        if (options.length === 0) return
+        this.setState({
+          [`${name}FocusedOptionIndex`]: e.shiftKey ? getPrevIndex(index) : getNextIndex(index)
+        })
+        e.preventDefault()
+        break
+      case 'Escape':
+        this.setState({
+          [`is${this.getCapitalizedName(name)}OptionsOpen`]: false
+        })
+        break
+      default:
+        return ''
+    }
+  }
+
+  handleOptionClick = (name, option) => {
+    this.setOption(name, option)
+  }
+
+  handleOptionOver = (name, index) => {
+    this.setState({
+      [`${name}FocusedOptionIndex`]: index
+    })
+  }
+
+  setOption = (name, option) => {
+    this.setState({
+      [name]: option,
+      [`${name}Options`]: [],
+      [`${name}FocusedOptionIndex`]: 0
+    })
+    this[`${name}Ref`].current.focus()
+  }
+
   handleSortByChange = sortOption => {
     const isValid = this.checkFormValidity()
     this.setState({ sortBy: sortOption }, isValid ? this.handleSubmit : undefined)
@@ -39,18 +125,6 @@ export class App extends React.Component {
   handleTermChange = value => {
     this.setState({
       term: value
-    })
-  }
-
-  handleTermFocus = () => {
-    this.setState({
-      isTermOptionsOpen: true
-    })
-  }
-
-  handleTermUnfocus = () => {
-    this.setState({
-      isTermOptionsOpen: false
     })
   }
 
@@ -111,80 +185,6 @@ export class App extends React.Component {
           locationOptions: []
         })
       })
-  }
-
-  handleLocationFocus = () => {
-    clearTimeout(this.locationTimeOutId)
-    this.setState({
-      isLocationOptionsOpen: true
-    })
-  }
-
-  handleLocationUnfocus = () => {
-    this.locationTimeOutId = setTimeout(() => {
-      this.setState({
-        isLocationOptionsOpen: false
-      })
-    })
-  }
-
-  handleLocationOptionClick = option => {
-    this.setLocationOption(option)
-  }
-
-  setLocationOption = option => {
-    this.setState({
-      location: option,
-      locationOptions: [],
-      locationFocusedOptionIndex: 0
-    })
-    this.locationRef.current.focus()
-  }
-
-  handleLocationKey = e => {
-    const { locationOptions, locationFocusedOptionIndex: index } = this.state
-    const getNextIndex = index => (index + 1 === locationOptions.length ? 0 : index + 1)
-    const getPrevIndex = index => (index - 1 < 0 ? locationOptions.length - 1 : index - 1)
-
-    switch (e.code) {
-      case 'Enter':
-        if (locationOptions.length === 0) return
-        this.setLocationOption(locationOptions[index])
-        e.preventDefault()
-        break
-      case 'ArrowUp':
-        this.setState({
-          locationFocusedOptionIndex: getPrevIndex(index)
-        })
-        e.preventDefault()
-        break
-      case 'ArrowDown':
-        this.setState({
-          locationFocusedOptionIndex: getNextIndex(index)
-        })
-        e.preventDefault()
-        break
-      case 'Tab':
-        if (locationOptions.length === 0) return
-        this.setState({
-          locationFocusedOptionIndex: e.shiftKey ? getPrevIndex(index) : getNextIndex(index)
-        })
-        e.preventDefault()
-        break
-      case 'Escape':
-        this.setState({
-          isLocationOptionsOpen: false
-        })
-        break
-      default:
-        return ''
-    }
-  }
-
-  handleLocationOptionOver = index => {
-    this.setState({
-      locationFocusedOptionIndex: index
-    })
   }
 
   checkFormValidity() {
@@ -268,15 +268,19 @@ export class App extends React.Component {
       <div className="App">
         <h1>ravenous</h1>
         <SearchBar
+          onFocus={this.handleFocus}
+          onUnfocus={this.handleUnfocus}
+          onKeyDown={this.handleKeyDown}
+          onOptionOver={this.handleOptionOver}
+          onOptionClick={this.handleOptionClick}
           sortBy={sortBy}
           onSortByChange={this.handleSortByChange}
           term={term}
+          termRef={this.termRef}
           termOptions={termOptions}
           isTermOptionsOpen={isTermOptionsOpen}
           termFocusedOptionIndex={termFocusedOptionIndex}
           onTermChange={this.handleTermChange}
-          onTermFocus={this.handleTermFocus}
-          onTermUnfocus={this.handleTermUnfocus}
           radius={radius}
           onRadiusChange={this.handleRadiusChange}
           onlyOpend={onlyOpend}
@@ -287,11 +291,6 @@ export class App extends React.Component {
           isLocationOptionsOpen={isLocationOptionsOpen}
           locationFocusedOptionIndex={locationFocusedOptionIndex}
           onLocationChange={this.handleLocationChange}
-          onLocationFocus={this.handleLocationFocus}
-          onLocationUnfocus={this.handleLocationUnfocus}
-          onLocationOptionClick={this.handleLocationOptionClick}
-          onLocationOptionOver={this.handleLocationOptionOver}
-          onLocationKey={this.handleLocationKey}
           isLocationInvalid={this.state.isLocationInvalid}
           onInvalid={this.handleInvalid}
           onSubmit={this.handleSubmit}
