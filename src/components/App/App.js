@@ -253,7 +253,12 @@ export class App extends React.Component {
 
     Yelp.searchBusinesses({ term, location, sortBy, radius, onlyOpened })
       .then(businesses => {
-        this.setState({ businesses, errorMessage: '' })
+        this.setState({
+          businesses,
+          errorMessage: businesses.length
+            ? ''
+            : 'There is no results on the current options set. Change some of them and try again.'
+        })
       })
       // server-side validation
       .catch(({ status, message }) => {
