@@ -35,6 +35,8 @@ export class App extends React.Component {
   termTimeOutId = null
   termSearchTimeOutId = null
 
+  optionsLimit = 5
+
   handleFocus = name => {
     clearTimeout(this[`${name}TimeOutId`])
 
@@ -126,6 +128,7 @@ export class App extends React.Component {
     this.setState({
       term: value
     })
+      () => this.searchTermOptions({ text: value, limit: this.optionsLimit }),
   }
 
   handleRadiusChange = value => {
@@ -159,7 +162,7 @@ export class App extends React.Component {
     }
 
     this.locationSearchTimeOutId = setTimeout(
-      () => this.searchLocationOptions({ location: value, limit: 5 }),
+      () => this.searchLocationOptions({ location: value, limit: this.optionsLimit }),
       700
     )
   }
