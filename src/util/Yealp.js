@@ -4,6 +4,7 @@ const apiKey =
 
 export const Yelp = {
   searchApiUrl: '/v3/businesses/search',
+  autocompleteApiUrl: '/v3/autocomplete',
 
   async searchBusinesses({
     term = '',
@@ -16,11 +17,24 @@ export const Yelp = {
     // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
     // const endpoint = 'https://api.yelp.com/v3/businesses/search'
     // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
-    const urlToFetch = this.getSearchUrl({ term, location, sortBy, radius, onlyOpened, limit })
+    const urlToFetch = this.getSearchUrl({
+      term,
+      location,
+      sortBy,
+      radius,
+      onlyOpened,
+      limit
+    })
 
     const { businesses = [] } = await this.search(urlToFetch)
 
     return businesses.map(business => this.getBusinessData(business))
+  },
+
+  async searchAutocomplete({ text, limit }) {
+    const urlToFetch = `${this.autocompleteApiUrl}?text=${text}&limit=${limit}`
+
+    return await this.search(urlToFetch)
   },
 
   getSearchUrl({ term, location, sortBy, radius, onlyOpened, limit }) {
