@@ -70,6 +70,8 @@
   color: #d4cfcf;
   background-color: rgb(224, 56, 56);
   caret-color: currentColor;
+  box-shadow: 0 0 10px rgb(207, 43, 43);
+  transition: all 0.1s ease-out;
 }
 .SearchBar-location.invalid input::placeholder {
   color: currentColor;
