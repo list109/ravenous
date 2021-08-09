@@ -53,8 +53,6 @@ export class App extends React.Component {
     })
   }
 
-  handleOptionFocus = () => clearTimeout(this.locationTimeOutId)
-
   getCapitalizedName = name => name[0].toUpperCase() + name.slice(1)
 
   handleKeyDown = e => {
@@ -128,7 +126,40 @@ export class App extends React.Component {
     this.setState({
       term: value
     })
+
+    clearTimeout(this.termSearchTimeOutId)
+
+    if (value === '') {
+      this.setState({
+        termOptions: [],
+        termFocusedOptionIndex: 0
+      })
+      return
+    }
+
+    this.termSearchTimeOutId = setTimeout(
       () => this.searchTermOptions({ text: value, limit: this.optionsLimit }),
+      700
+    )
+  }
+
+  searchTermOptions = ({ text, limit }) => {
+    Yelp.searchAutocomplete({ text, limit })
+      .then(data => {
+        const terms = data?.terms.map(({ text }) => text)
+
+        if (this.state.term === text && this.state.isRequestRun === false) {
+          this.setState({
+            termOptions: [this.state.term, ...terms],
+            isTermOptionsOpen: document.activeElement === this.termRef.current
+          })
+        }
+      })
+      .catch(error => {
+        this.setState({
+          termOptions: []
+        })
+      })
   }
 
   handleRadiusChange = value => {
@@ -212,7 +243,7 @@ export class App extends React.Component {
     const { sortBy, term, location, radius, onlyOpened } = this.state
     this.searchYelp({ sortBy, term, location, radius, onlyOpened })
   }
-  // 3. post-server-side validation is aplyed on a response
+  // 3. post-server client-side validation is applied on a response
   searchYelp = ({ term, location, sortBy, radius, onlyOpened }) => {
     if (this.state.isRequestRun) return
     this.setState({
