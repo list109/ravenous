@@ -60,7 +60,7 @@ export const Yelp = {
         }
       })
     } catch (error) {
-      throw new FetchError({ message: `Network error has occured. Try again or later.` })
+      throw new FetchError({ message: 'Network error has occured. Try again or later.' })
     }
 
     if (!response.ok) {
@@ -76,7 +76,13 @@ export const Yelp = {
       throw new FetchError({ status: errorStatus, message: errorMessage })
     }
 
-    return await response.json()
+    try {
+      return await response.json()
+    } catch {
+      throw new FetchError({
+        message: 'Some error has occured on the server. Please, try again or later.'
+      })
+    }
   },
 
   getBusinessData({
