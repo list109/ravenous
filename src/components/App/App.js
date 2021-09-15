@@ -257,7 +257,7 @@ export class App extends React.Component {
           businesses,
           errorMessage: businesses.length
             ? ''
-            : 'There is no results on the current options set. Change some of them and try again.'
+            : 'There are no results on the current options set. Change some of them and try again.'
         })
       })
       // server-side validation
