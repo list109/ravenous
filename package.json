@@ -2,7 +2,6 @@
   "name": "ravenous",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api.yelp.com",
   "homepage": "https://list109.github.io/ravenous/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.13.0",
