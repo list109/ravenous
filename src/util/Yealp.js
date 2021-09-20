@@ -1,10 +1,21 @@
-// const clientId = 'h2ayhV07GIf6tEX31j29cw'
 const apiKey =
   'IoNiWEe1LFoHMhPW3C23ogHi6ih5_rAJqUfjm6Px19rti1nBX8FD-plzKL9jxpQBMnQBZaSwH_z-hN9Ru1rqNV1WoaR0vC9p5ywlR7_hRahgEnBgCIXlNUTgcUzTYHYx'
 
+//proxy #1
+const proxy = 'https://thingproxy.freeboard.io/fetch/'
+//spare proxy #2
+// const proxy = 'https://cors-anywhere.herokuapp.com/'
+
 export const Yelp = {
-  searchApiUrl: '/v3/businesses/search',
-  autocompleteApiUrl: '/v3/autocomplete',
+  url: {
+    yelpApiUrl: `https://api.yelp.com`,
+    get searchApiUrl() {
+      return `${this.yelpApiUrl}/v3/businesses/search`
+    },
+    get autocompleteApiUrl() {
+      return `${this.yelpApiUrl}/v3/autocomplete`
+    }
+  },
 
   async searchBusinesses({
     term = '',
@@ -14,9 +25,6 @@ export const Yelp = {
     onlyOpened = '',
     limit = ''
   }) {
-    // const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
-    // const endpoint = 'https://api.yelp.com/v3/businesses/search'
-    // const urlToFetch = `${corsAnywhere}${endpoint}?term=${term}&location=${location}&sort_by=${sortBy}`
     const urlToFetch = this.getSearchUrl({
       term,
       location,
@@ -32,13 +40,13 @@ export const Yelp = {
   },
 
   async searchAutocomplete({ text, limit }) {
-    const urlToFetch = `${this.autocompleteApiUrl}?text=${text}&limit=${limit}`
+    const urlToFetch = `${this.url.autocompleteApiUrl}?text=${text}&limit=${limit}`
 
     return await this.search(urlToFetch)
   },
 
   getSearchUrl({ term, location, sortBy, radius, onlyOpened, limit }) {
-    let url = `${this.searchApiUrl}?`
+    let url = `${this.url.searchApiUrl}?`
 
     url = term ? `${url}term=${term}&` : url
     url = location ? `${url}location=${location}&` : url
@@ -54,7 +62,7 @@ export const Yelp = {
     let response
 
     try {
-      response = await fetch(urlToFetch, {
+      response = await fetch(proxy + urlToFetch, {
         headers: {
           Authorization: `Bearer ${apiKey}`
         }
