@@ -1,10 +1,7 @@
 const apiKey =
   'IoNiWEe1LFoHMhPW3C23ogHi6ih5_rAJqUfjm6Px19rti1nBX8FD-plzKL9jxpQBMnQBZaSwH_z-hN9Ru1rqNV1WoaR0vC9p5ywlR7_hRahgEnBgCIXlNUTgcUzTYHYx'
 
-//proxy #1
-const proxy = 'https://thingproxy.freeboard.io/fetch/'
-//spare proxy #2
-// const proxy = 'https://cors-anywhere.herokuapp.com/'
+const proxy = 'https://cors-proxy-list109.herokuapp.com/'
 
 export const Yelp = {
   url: {
