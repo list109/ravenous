@@ -8,6 +8,7 @@ import { Loading } from '../Loading/Loading'
 export class App extends React.Component {
   state = {
     businesses: [],
+    //  errorMessage is eveluated every time once a try to make a main request is initiated. if the response of a main request is successful, then resetting to an empty value occurs
     errorMessage: 'Start with a location value. The rest is optional.',
     isRequestRun: false,
 
@@ -150,8 +151,8 @@ export class App extends React.Component {
 
         if (this.state.term === text && this.state.isRequestRun === false) {
           this.setState({
-            termOptions: [this.state.term, ...terms],
-            isTermOptionsOpen: document.activeElement === this.termRef.current
+            termOptions: [this.state.term, ...terms]
+            // isTermOptionsOpen: document.activeElement === this.termRef.current
           })
         }
       })
@@ -209,8 +210,8 @@ export class App extends React.Component {
 
         if (this.state.location === location && this.state.isRequestRun === false) {
           this.setState({
-            locationOptions: [this.state.location, ...options],
-            isLocationOptionsOpen: document.activeElement === this.locationRef.current
+            locationOptions: [this.state.location, ...options]
+            // isLocationOptionsOpen: document.activeElement === this.locationRef.current
           })
         }
       })
@@ -257,23 +258,25 @@ export class App extends React.Component {
           businesses,
           errorMessage: businesses.length
             ? ''
-            : 'There are no results on the current options set. Change some of them and try again.'
+            : this.getResponseErrorMessage({ status: 'NO_RESULTS' })
         })
       })
       // server-side validation
       .catch(({ status, message }) => {
         this.setState({
-          errorMessage: this.getErrorMessage({ status, message }),
+          errorMessage: this.getResponseErrorMessage({ status, message }),
           isLocationInvalid: status === 'LOCATION_NOT_FOUND'
         })
       })
       .finally(() => this.setState({ isRequestRun: false }))
   }
 
-  getErrorMessage({ status, message = 'Something went wrong, please try again' }) {
+  getResponseErrorMessage({ status, message = 'Something went wrong, please try again' }) {
     switch (status) {
       case 'LOCATION_NOT_FOUND':
-        return 'Please, try to change the location'
+        return 'Please, try changing the location'
+      case 'NO_RESULTS':
+        return 'There are no results on the current options set. Change some of them and try again.'
       default:
         return message
     }
