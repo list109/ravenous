@@ -161,8 +161,13 @@ export class App extends React.Component {
       })
       .catch(error => {
         this.setState({
-          termOptions: []
+          termOptions: this.state.term ? [this.state.term] : []
         })
+      })
+      .finally(() => {
+        this.setState(({ termOptions, termFocusedOptionIndex }) => ({
+          termFocusedOptionIndex: Math.min(termOptions.length - 1, termFocusedOptionIndex)
+        }))
       })
   }
 
@@ -222,8 +227,16 @@ export class App extends React.Component {
       })
       .catch(error => {
         this.setState({
-          locationOptions: [this.state.locationOptions[0]]
+          locationOptions: this.state.location ? [this.state.location] : []
         })
+      })
+      .finally(() => {
+        this.setState(({ locationOptions, locationFocusedOptionIndex }) => ({
+          locationFocusedOptionIndex: Math.min(
+            locationOptions.length - 1,
+            locationFocusedOptionIndex
+          )
+        }))
       })
   }
 
