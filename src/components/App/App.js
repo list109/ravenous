@@ -60,6 +60,7 @@ export class App extends React.Component {
     const { name } = e.target
     const options = this.state[`${name}Options`]
     const index = this.state[`${name}FocusedOptionIndex`]
+    const isOptionsOpen = this.state[`is${this.getCapitalizedName(name)}OptionsOpen`]
 
     const getNextIndex = index => (index + 1 === options.length ? 0 : index + 1)
     const getPrevIndex = index => (index - 1 < 0 ? options.length - 1 : index - 1)
@@ -83,7 +84,7 @@ export class App extends React.Component {
         e.preventDefault()
         break
       case 'Tab':
-        if (options.length === 0) return
+        if (options.length === 0 || isOptionsOpen === false) return
         this.setState({
           [`${name}FocusedOptionIndex`]: e.shiftKey ? getPrevIndex(index) : getNextIndex(index)
         })
