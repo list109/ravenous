@@ -125,7 +125,8 @@ export class App extends React.Component {
 
   handleTermChange = value => {
     this.setState({
-      term: value
+      term: value,
+      termOptions: [value, ...this.state.termOptions.slice(1)]
     })
 
     clearTimeout(this.termSearchTimeOutId)
@@ -149,7 +150,8 @@ export class App extends React.Component {
       .then(data => {
         const terms = data?.terms.map(({ text }) => text)
 
-        if (this.state.term === text && this.state.isRequestRun === false) {
+        // if (this.state.term === text && this.state.isRequestRun === false) {
+        if (this.state.term === text) {
           this.setState({
             termOptions: [this.state.term, ...terms]
             // isTermOptionsOpen: document.activeElement === this.termRef.current
@@ -180,6 +182,7 @@ export class App extends React.Component {
   handleLocationChange = value => {
     this.setState({
       location: value,
+      locationOptions: [value, ...this.state.locationOptions.slice(1)],
       isLocationInvalid: false
     })
 
@@ -208,7 +211,8 @@ export class App extends React.Component {
           }`
         })
 
-        if (this.state.location === location && this.state.isRequestRun === false) {
+        // if (this.state.location === location && this.state.isRequestRun === false) {
+        if (this.state.location === location) {
           this.setState({
             locationOptions: [this.state.location, ...options]
             // isLocationOptionsOpen: document.activeElement === this.locationRef.current
@@ -217,7 +221,7 @@ export class App extends React.Component {
       })
       .catch(error => {
         this.setState({
-          locationOptions: []
+          locationOptions: [this.state.locationOptions[0]]
         })
       })
   }
@@ -239,7 +243,7 @@ export class App extends React.Component {
     e?.preventDefault()
     if (this.state.isLocationInvalid) return
 
-    this.setState({ locationOptions: [] })
+    // this.setState({ locationOptions: [] })
 
     const { sortBy, term, location, radius, onlyOpened } = this.state
     this.searchYelp({ sortBy, term, location, radius, onlyOpened })
