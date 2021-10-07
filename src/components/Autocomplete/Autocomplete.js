@@ -27,7 +27,7 @@ export function Autocomplete({
           onPointerOver={() => handlePointerOver(i)}
           tabIndex="0"
         >
-          {option}
+          <p>{option}</p>
         </li>
       ))}
     </ul>
