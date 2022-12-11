@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import { BusinessList } from '../BusinessList/BusinessList'
 import { SearchBar } from '../SearchBar/SearchBar'
-import { Yelp } from '../../util/Yealp'
+import { Yelp } from '../../util/Yelp'
 import { Loading } from '../Loading/Loading'
 
 export class App extends React.Component {
