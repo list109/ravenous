@@ -1,7 +1,7 @@
 const apiKey =
   'IoNiWEe1LFoHMhPW3C23ogHi6ih5_rAJqUfjm6Px19rti1nBX8FD-plzKL9jxpQBMnQBZaSwH_z-hN9Ru1rqNV1WoaR0vC9p5ywlR7_hRahgEnBgCIXlNUTgcUzTYHYx'
 
-const proxy = 'https://cors-proxy-list109.herokuapp.com/'
+const proxy = 'https://cors-anywhere-list109.onrender.com/'
 
 export const Yelp = {
   url: {
